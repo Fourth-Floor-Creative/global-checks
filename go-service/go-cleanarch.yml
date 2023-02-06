@@ -1,0 +1,29 @@
+name: go-cleanarch
+on:
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  go-cleanarch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.18.0'
+          cache: true
+
+      - name: Setup github for go private
+        run: git config --global url.https://${{ secrets.SERVICE_HASTINGS_PAT }}@github.com/.insteadOf https://github.com/
+
+      - name: Install dependencies
+        run: |
+          go version
+          go install github.com/roblaszczak/go-cleanarch
+
+      - name: Run linter
+        run: go-cleanarch ./pkg -ignore-tests -domain entities -application usecases -interfaces adapters -infrastructure drivers
