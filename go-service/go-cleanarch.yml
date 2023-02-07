@@ -23,8 +23,8 @@ jobs:
       - name: Install dependencies
         run: |
           go version
-          go install github.com/roblaszczak/go-cleanarch
+          go install github.com/roblaszczak/go-cleanarch@latest
 
       - name: Run linter
-        working-directory: .
+        working-directory: ./pkg
         run: go-cleanarch -ignore-tests -domain entities -application usecases -interfaces adapters -infrastructure drivers
