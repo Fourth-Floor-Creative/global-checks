@@ -26,4 +26,5 @@ jobs:
           go install github.com/roblaszczak/go-cleanarch
 
       - name: Run linter
-        run: go-cleanarch ./pkg -ignore-tests -domain entities -application usecases -interfaces adapters -infrastructure drivers
+        working-directory: ./pkg
+        run: go-cleanarch -ignore-tests -domain entities -application usecases -interfaces adapters -infrastructure drivers
