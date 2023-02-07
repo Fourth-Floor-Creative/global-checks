@@ -31,5 +31,5 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          working-directory: ./pkg/...
+          working-directory: ./pkg
           args: -v
