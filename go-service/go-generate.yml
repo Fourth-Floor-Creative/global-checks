@@ -38,4 +38,4 @@ jobs:
         run: go generate ./...
 
       - name: Check git diff
-        run: git diff -- ./
+        run: git diff --exit-code ./
