@@ -1,0 +1,35 @@
+name: go-generate
+
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - development
+      - main
+  pull_request:
+    branches:
+      - main
+      - development
+permissions:
+  contents: read
+
+jobs:
+  go-generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.18.0'
+          cache: true
+
+      - name: Setup github for go private
+        run: git config --global url.https://${{ secrets.SERVICE_HASTINGS_PAT }}@github.com/.insteadOf https://github.com/
+
+      - name: Run go generate
+        run: go generate ./...
+
+      - name: Check git diff
+        run: git diff --check ./
