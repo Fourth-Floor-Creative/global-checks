@@ -4,10 +4,6 @@ on:
   pull_request:
 
 jobs:
-  call-test-dependencies-workflow:
-    env:
-      REPO: ${{ github.event.pull_request.head.repo.name }}
-    uses: Fourth-Floor-Creative/$REPO/.github/workflows/test-dependencies.yml@main
 
   test:
     permissions:
