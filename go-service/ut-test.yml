@@ -5,16 +5,7 @@ on:
 
 jobs:
   call-test-dependencies-workflow:
-      env:
-        REPO: ${{ github.event.pull_request.head.repo.full_name }}
-
-      runs-on: ubuntu-latest
-
-      steps:
-        - name: print repo name
-          run: |
-            echo "$REPO"
-      # uses: Fourth-Floor-Creative/${{ github.event.repository.name }}/.github/workflows/test-dependencies.yml@main
+    uses: ${{ github.event.pull_request.head.repo.full_name }}/.github/workflows/test-dependencies.yml@main
 
   test:
     permissions:
