@@ -5,7 +5,7 @@ on:
 
 jobs:
   call-test-dependencies-workflow:
-      uses: Fourth-Floor-Creative/${{ github.event.repository.name }}/.github/workflows/test-dependencies.yml
+      uses: Fourth-Floor-Creative/${{ github.event.repository.name }}/.github/workflows/test-dependencies.yml@main
 
   test:
     permissions:
