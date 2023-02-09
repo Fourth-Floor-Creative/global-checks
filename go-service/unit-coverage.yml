@@ -1,6 +1,7 @@
 name: unit-coverage
 on:
-  workflow_call:
+  workflow_run:
+    workflows: ["test"]
     inputs:
       coverage-report:
         required: true
@@ -11,7 +12,6 @@ permissions:
 jobs:
   unit-coverage:
     name: lint
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
