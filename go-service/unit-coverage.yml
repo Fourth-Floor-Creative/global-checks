@@ -1,9 +1,8 @@
 name: unit-coverage
 on:
-  workflow_run:
-    workflows: ["test"]
+  workflow_call:
     inputs:
-      coverage-report:
+      report-name:
         required: true
         type: string
 permissions:
@@ -26,7 +25,7 @@ jobs:
       
       - uses: actions/download-artifact@v2
         with:
-          name: coverage-report
+          name: coverage-report ${{ inputs.report-name }}
 
       - name: Quality check - Test Coverage
         env: 
