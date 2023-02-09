@@ -1,5 +1,7 @@
 name: unit-coverage
-on: workflow_call
+
+on: 
+  workflow_call:
     inputs:
       report-name:
         required: true
