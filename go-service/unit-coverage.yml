@@ -11,32 +11,33 @@ permissions:
 jobs:
   unit-coverage:
     name: lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    triage:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
 
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '>=1.18.0'
-          cache: true
+        - uses: actions/setup-go@v3
+          with:
+            go-version: '>=1.18.0'
+            cache: true
 
-      - name: Setup github for go private
-        run: git config --global url.https://${{ secrets.SERVICE_HASTINGS_PAT }}@github.com/.insteadOf https://github.com/
-      
-      - uses: actions/download-artifact@v2
-        with:
-          name: coverage-report ${{ inputs.report-name }}
+        - name: Setup github for go private
+          run: git config --global url.https://${{ secrets.SERVICE_HASTINGS_PAT }}@github.com/.insteadOf https://github.com/
+        
+        - uses: actions/download-artifact@v2
+          with:
+            name: coverage-report ${{ inputs.report-name }}
 
-      - name: Quality check - Test Coverage
-        env: 
-          MIN_THRESHOLD: 90
-        run: |
-          echo "Minimum threshold: $MIN_THRESHOLD %"
-          totalCoverage=`go tool cover -func=profile.cov | grep total | grep -Eo '[0-9]+\.[0-9]+'’
-          if (( $(echo "$totalCoverage $MIN_THRESHOLD" | awk '{print ($1 > $2)}') )); then
-            echo "OK"
-          else
-            echo "Test Coverage is below threshold."
-            echo "Failed"
-            exit 1
-          fi
+        - name: Quality check - Test Coverage
+          env: 
+            MIN_THRESHOLD: 90
+          run: |
+            echo "Minimum threshold: $MIN_THRESHOLD %"
+            totalCoverage=`go tool cover -func=profile.cov | grep total | grep -Eo '[0-9]+\.[0-9]+'’
+            if (( $(echo "$totalCoverage $MIN_THRESHOLD" | awk '{print ($1 > $2)}') )); then
+              echo "OK"
+            else
+              echo "Test Coverage is below threshold."
+              echo "Failed"
+              exit 1
+            fi
