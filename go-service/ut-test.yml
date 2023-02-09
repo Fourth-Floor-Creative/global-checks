@@ -5,7 +5,9 @@ on:
 
 jobs:
   call-test-dependencies-workflow:
-    uses: ${{ github.event.pull_request.head.repo.full_name }}/.github/workflows/test-dependencies.yml@main
+    env:
+      REPO: ${{ github.event.pull_request.head.repo.full_name }}
+    uses: $REPO/.github/workflows/test-dependencies.yml@main
 
   test:
     permissions:
