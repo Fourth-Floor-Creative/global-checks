@@ -1,4 +1,4 @@
-name: Test and Build
+name: test, build and coverage
 
 on:
   pull_request:
@@ -30,6 +30,10 @@ jobs:
       - uses: google-github-actions/setup-gcloud@v0.6.0
         with:
           project_id: 'ffc-platform-development'
+
+      - uses: pocket-apps/action-setup-firebase@v2
+        with:
+          firebase-token: "shake" # Don't need this, but it's mandatory that its set so...
 
       - name: Setup github for go private
         run: git config --global url.https://${{ secrets.SERVICE_HASTINGS_PAT }}@github.com/.insteadOf https://github.com/
