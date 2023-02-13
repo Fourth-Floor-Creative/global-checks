@@ -28,8 +28,8 @@ jobs:
       - name: Setup github for go private
         run: git config --global url.https://${{ secrets.SERVICE_HASTINGS_PAT }}@github.com/.insteadOf https://github.com/
 
-      - name: install golangci-lint
-        run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.51.0
-      
-      - name: run golangci-lint
-        run: golangci-lint run ./cmd ./pkg/... -v --out-format=github-actions -v --timeout=30m
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.51.0
+          args: ./cmd ./pkg/... -v --timeout=30m
