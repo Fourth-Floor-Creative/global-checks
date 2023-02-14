@@ -109,5 +109,5 @@ jobs:
           version: v0.7.0
           context: .
           file: ./build/Dockerfile
-          tags: europe-docker.pkg.dev/devops-339608/services/shopify-collector-service:${{ steps.slug.outputs.branch-name-slug }}-${{ steps.short_sha.outputs.short_sha }}
+          tags: europe-docker.pkg.dev/devops-339608/services/${{ github.event.repository.name }}:${{ steps.slug.outputs.branch-name-slug }}-${{ steps.short_sha.outputs.short_sha }}
           push: true
